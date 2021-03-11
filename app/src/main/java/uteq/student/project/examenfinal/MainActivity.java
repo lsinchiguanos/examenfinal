@@ -1,7 +1,6 @@
 package uteq.student.project.examenfinal;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -25,7 +24,6 @@ import java.util.List;
 import uteq.student.project.examenfinal.ItemView.ItemView;
 import uteq.student.project.examenfinal.LoadMoreView.LoadMoreView;
 import uteq.student.project.examenfinal.models.Journals;
-import uteq.student.project.examenfinal.utils.Utils;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,10 +43,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupView(List<Journals> feedList){
         Log.d("DEBUG", "LoadMoreView.LOAD_VIEW_SET_COUNT " + LoadMoreView.LOAD_VIEW_SET_COUNT);
-        for(int i = 0; i < 3; i++){
+        for(int i = 0; i < feedList.size(); i++){
             mLoadMoreView.addView(new ItemView(this.getApplicationContext(), feedList.get(i)));
         }
-        mLoadMoreView.setLoadMoreResolver(new LoadMoreView(mLoadMoreView, feedList));
+        /* EVITANDO MOSTRAR EL OTRO DE MAS */
+        //mLoadMoreView.setLoadMoreResolver(new LoadMoreView(mLoadMoreView, feedList));
     }
 
 
