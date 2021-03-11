@@ -1,25 +1,33 @@
 package uteq.student.project.examenfinal.models;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class Journals {
 
+    @SerializedName("journal_id")
+    @Expose
     private String journal_id;
+
+    @SerializedName("portada")
+    @Expose
     private String portada;
+
+    @SerializedName("abbreviation")
+    @Expose
     private String abbreviation;
+
+    @SerializedName("description")
+    @Expose
+    private String description;
+
+    @SerializedName("journalThumbnail")
+    @Expose
+    private String journalThumbnail;
+
+    @SerializedName("name")
+    @Expose
     private String name;
-
-    public Journals() {
-    }
-
-    public Journals(String journal_id) {
-        this.journal_id = journal_id;
-    }
-
-    public Journals(String journal_id, String portada, String abbreviation, String name) {
-        this.journal_id = journal_id;
-        this.portada = portada;
-        this.abbreviation = abbreviation;
-        this.name = name;
-    }
 
     public String getJournal_id() {
         return journal_id;
@@ -43,6 +51,22 @@ public class Journals {
 
     public void setAbbreviation(String abbreviation) {
         this.abbreviation = abbreviation;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getJournalThumbnail() {
+        return journalThumbnail;
+    }
+
+    public void setJournalThumbnail(String journalThumbnail) {
+        this.journalThumbnail = journalThumbnail;
     }
 
     public String getName() {

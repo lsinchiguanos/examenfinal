@@ -13,6 +13,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.mindorks.placeholderview.InfinitePlaceHolderView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,27 +22,41 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import uteq.student.project.examenfinal.ItemView.ItemView;
+import uteq.student.project.examenfinal.LoadMoreView.LoadMoreView;
 import uteq.student.project.examenfinal.models.Journals;
+import uteq.student.project.examenfinal.utils.Utils;
 
 public class MainActivity extends AppCompatActivity {
 
     private Journals journals;
-    private ArrayList<Journals> journalsArrayList;
+    private List<Journals> journalsArrayList;
     private RequestQueue requestQueue;
+    private InfinitePlaceHolderView mLoadMoreView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         requestQueue = Volley.newRequestQueue(this);
+        mLoadMoreView = (InfinitePlaceHolderView)findViewById(R.id.loadMoreView);
         getDataWebService();
     }
+
+    private void setupView(List<Journals> feedList){
+        Log.d("DEBUG", "LoadMoreView.LOAD_VIEW_SET_COUNT " + LoadMoreView.LOAD_VIEW_SET_COUNT);
+        for(int i = 0; i < 3; i++){
+            mLoadMoreView.addView(new ItemView(this.getApplicationContext(), feedList.get(i)));
+        }
+        mLoadMoreView.setLoadMoreResolver(new LoadMoreView(mLoadMoreView, feedList));
+    }
+
 
     private void getDataWebService() {
         journalsArrayList = new ArrayList<>();
         String url = "https://revistas.uteq.edu.ec/ws/journals.php";
         JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(
-                Request.Method.POST,
+                Request.Method.GET,
                 url,
                 null,
                 new Response.Listener<JSONArray>() {
@@ -61,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                         }
+                        setupView(journalsArrayList);
                     }
                 },
                 new Response.ErrorListener() {
