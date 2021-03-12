@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
                             journals.setJournal_id(jsonObject.getString("journal_id"));
                             journals.setPortada(jsonObject.getString("portada"));
                             journals.setAbbreviation(jsonObject.getString("abbreviation"));
+                            journals.setDescripcion(jsonObject.getString("description"));
                             journals.setName(jsonObject.getString("name"));
                             journalsArrayList.add(journals);
                         } catch (JSONException e) {

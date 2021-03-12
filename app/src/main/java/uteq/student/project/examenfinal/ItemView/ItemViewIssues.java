@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.mindorks.placeholderview.annotations.Click;
@@ -49,12 +50,16 @@ public class ItemViewIssues {
     @SuppressLint("SetTextI18n")
     @Resolve
     private void onResolved() {
-        issuesidTxt.setText(mInfo.getIssue_id());
-        titleTxt.setText(mInfo.getTitle());
-        datosTxt.setText("Volumen: " + mInfo.getVolume() + " - Número: " + mInfo.getNumber() +  " - Año: " + mInfo.getYear());
-        doiTxt.setText(mInfo.getDoi());
-        date_publishedTxt.setText(mInfo.getDate_published());
-        Glide.with(mContext).load(mInfo.getCover()).into(cover);
+        try {
+            issuesidTxt.setText(mInfo.getIssue_id());
+            titleTxt.setText(mInfo.getTitle());
+            datosTxt.setText("Volumen: " + mInfo.getVolume() + " - Número: " + mInfo.getNumber() +  " - Año: " + mInfo.getYear());
+            doiTxt.setText(mInfo.getDoi());
+            date_publishedTxt.setText(mInfo.getDate_published());
+            Glide.with(mContext).load(mInfo.getCover()).into(cover);
+        }catch (Exception exception) {
+            Toast.makeText(null, "ex", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Click(R.id.rootView)

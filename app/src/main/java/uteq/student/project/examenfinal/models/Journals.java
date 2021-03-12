@@ -8,6 +8,8 @@ public class Journals {
 
     private String abbreviation;
 
+    private String descripcion;
+
     private String name;
 
     public Journals() {
@@ -35,6 +37,14 @@ public class Journals {
 
     public void setAbbreviation(String abbreviation) {
         this.abbreviation = abbreviation;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public String getName() {

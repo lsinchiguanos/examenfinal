@@ -2,6 +2,7 @@ package uteq.student.project.examenfinal.ItemView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.Html;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -28,6 +29,9 @@ public class ItemView {
     @View(R.id.journalid)
     private TextView journalidTxt;
 
+    @View(R.id.descripcion)
+    private TextView descripcionTxt;
+
     @View(R.id.portada)
     private ImageView portada;
 
@@ -43,6 +47,7 @@ public class ItemView {
     private void onResolved() {
         nameTxt.setText(mInfo.getName());
         abreviaturaTxt.setText(mInfo.getAbbreviation());
+        descripcionTxt.setText(Html.fromHtml(mInfo.getDescripcion()));
         journalidTxt.setText(mInfo.getJournal_id());
         Glide.with(mContext).load(mInfo.getPortada()).into(portada);
     }

@@ -18,7 +18,7 @@ import uteq.student.project.examenfinal.models.Issues;
 @Layout(R.layout.load_more_item_view_issues)
 public class LoadMoreViewIssues {
 
-    public static final int LOAD_VIEW_SET_COUNT = 6;
+    public static final int LOAD_VIEW_SET_COUNT = 3;
     private InfinitePlaceHolderView mLoadMoreView;
     private ArrayList<Issues> mFeedList;
 
