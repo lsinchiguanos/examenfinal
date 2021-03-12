@@ -78,36 +78,16 @@
                 android:textStyle="normal"
                 android:typeface="sans" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/publication_id"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/btnPdf"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_weight="1"
-                    android:text="@string/pdf"
-                    android:textColor="@android:color/black"
-                    android:textSize="12sp"
-                    android:textStyle="normal"
-                    android:typeface="sans" />
-
-                <TextView
-                    android:id="@+id/publication_id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_weight="1"
-                    android:textAlignment="textEnd"
-                    android:textColor="@android:color/black"
-                    android:textSize="12sp"
-                    android:textStyle="normal"
-                    android:typeface="sans" />
-            </LinearLayout>
+                android:layout_marginTop="10dp"
+                android:layout_gravity="right"
+                android:textColor="@android:color/black"
+                android:textSize="12sp"
+                android:typeface="sans"
+                android:textStyle="normal"/>
         </LinearLayout>
     </LinearLayout>
 

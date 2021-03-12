@@ -15,16 +15,17 @@ import com.mindorks.placeholderview.annotations.View;
 import uteq.student.project.examenfinal.IssuesActivity;
 import uteq.student.project.examenfinal.R;
 import uteq.student.project.examenfinal.models.Issues;
+import uteq.student.project.examenfinal.models.Pubs;
 
 public class ItemViewPubs {
-    @View(R.id.issuesid)
-    private TextView issuesidTxt;
+    @View(R.id.section)
+    private TextView sectionTxt;
 
     @View(R.id.title)
     private TextView titleTxt;
 
-    @View(R.id.datos)
-    private TextView datosTxt;
+    @View(R.id.abstracts)
+    private TextView abstractsTxt;
 
     @View(R.id.date_published)
     private TextView date_publishedTxt;
@@ -32,13 +33,13 @@ public class ItemViewPubs {
     @View(R.id.doi)
     private TextView doiTxt;
 
-    @View(R.id.cover)
-    private ImageView cover;
+    @View(R.id.publication_id)
+    private TextView publication_idText;
 
-    private Issues mInfo;
+    private Pubs mInfo;
     private Context mContext;
 
-    public ItemViewIssues(Context context, Issues info) {
+    public ItemViewPubs(Context context, Pubs info) {
         mContext = context;
         mInfo = info;
     }
@@ -46,20 +47,20 @@ public class ItemViewPubs {
     @SuppressLint("SetTextI18n")
     @Resolve
     private void onResolved() {
-        issuesidTxt.setText(mInfo.getIssue_id());
+        publication_idText.setText(mInfo.getPublication_id());
         titleTxt.setText(mInfo.getTitle());
-        datosTxt.setText("Volumen: " + mInfo.getVolume() + " - Número: " + mInfo.getNumber() +  " - Año: " + mInfo.getYear());
+        abstractsTxt.setText(mInfo.getPabstract());
         doiTxt.setText(mInfo.getDoi());
         date_publishedTxt.setText(mInfo.getDate_published());
-        Glide.with(mContext).load(mInfo.getCover()).into(cover);
+        sectionTxt.setText(mInfo.getSection());
     }
 
     @Click(R.id.rootView)
     public void onCardClick() {
         //Toast.makeText(mContext, mInfo.getIssue_id(), Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(mContext, IssuesActivity.class);
-        intent.putExtra("issues_id", mInfo.getIssue_id());
-        Log.d("issues_id", "onClick");
-        mContext.startActivity(intent);
+        getPDF();
+    }
+
+    private void getPDF() {
     }
 }
