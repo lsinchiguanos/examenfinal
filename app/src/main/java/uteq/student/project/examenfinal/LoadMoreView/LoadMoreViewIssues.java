@@ -8,6 +8,7 @@ import com.mindorks.placeholderview.InfinitePlaceHolderView;
 import com.mindorks.placeholderview.annotations.Layout;
 import com.mindorks.placeholderview.annotations.infinite.LoadMore;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import uteq.student.project.examenfinal.ItemView.ItemViewIssues;
@@ -19,9 +20,9 @@ public class LoadMoreViewIssues {
 
     public static final int LOAD_VIEW_SET_COUNT = 6;
     private InfinitePlaceHolderView mLoadMoreView;
-    private List<Issues> mFeedList;
+    private ArrayList<Issues> mFeedList;
 
-    public LoadMoreViewIssues(InfinitePlaceHolderView loadMoreView, List<Issues> feedList) {
+    public LoadMoreViewIssues(InfinitePlaceHolderView loadMoreView, ArrayList<Issues> feedList) {
         this.mLoadMoreView = loadMoreView;
         this.mFeedList = feedList;
     }
@@ -29,7 +30,7 @@ public class LoadMoreViewIssues {
     @LoadMore
     private void onLoadMore(){
         Log.d("DEBUG", "onLoadMore");
-        new LoadMoreViewIssues.ForcedWaitedLoading();
+        new ForcedWaitedLoading();
     }
 
     class ForcedWaitedLoading implements Runnable{

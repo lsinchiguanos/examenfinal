@@ -3,16 +3,12 @@ package uteq.student.project.examenfinal.ItemView;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.mindorks.placeholderview.PlaceHolderView;
 import com.mindorks.placeholderview.annotations.Click;
 import com.mindorks.placeholderview.annotations.Layout;
-import com.mindorks.placeholderview.annotations.LongClick;
 import com.mindorks.placeholderview.annotations.Resolve;
 import com.mindorks.placeholderview.annotations.View;
 

@@ -3,20 +3,29 @@ package uteq.student.project.examenfinal.ItemView;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Environment;
+import android.text.Html;
 import android.util.Log;
-import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.mindorks.placeholderview.annotations.Click;
+import com.mindorks.placeholderview.annotations.Layout;
 import com.mindorks.placeholderview.annotations.Resolve;
 import com.mindorks.placeholderview.annotations.View;
 
-import uteq.student.project.examenfinal.IssuesActivity;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 import uteq.student.project.examenfinal.R;
-import uteq.student.project.examenfinal.models.Issues;
 import uteq.student.project.examenfinal.models.Pubs;
 
+@Layout(R.layout.load_more_item_view_pubs)
 public class ItemViewPubs {
     @View(R.id.section)
     private TextView sectionTxt;
@@ -49,7 +58,7 @@ public class ItemViewPubs {
     private void onResolved() {
         publication_idText.setText(mInfo.getPublication_id());
         titleTxt.setText(mInfo.getTitle());
-        abstractsTxt.setText(mInfo.getPabstract());
+        abstractsTxt.setText(Html.fromHtml(mInfo.getPabstract()));
         doiTxt.setText(mInfo.getDoi());
         date_publishedTxt.setText(mInfo.getDate_published());
         sectionTxt.setText(mInfo.getSection());
@@ -57,10 +66,10 @@ public class ItemViewPubs {
 
     @Click(R.id.rootView)
     public void onCardClick() {
-        //Toast.makeText(mContext, mInfo.getIssue_id(), Toast.LENGTH_SHORT).show();
         getPDF();
     }
 
     private void getPDF() {
+        mContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(mInfo.getUrlViewGalley() + ".pdf")));
     }
 }

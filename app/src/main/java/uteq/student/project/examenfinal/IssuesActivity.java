@@ -41,13 +41,13 @@ public class IssuesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_issues);
         journal_id = getIntent().getExtras().getString("j_id");
         requestQueue = Volley.newRequestQueue(this);
-        mLoadMoreView = (InfinitePlaceHolderView)findViewById(R.id.loadMoreView);
+        mLoadMoreView = findViewById(R.id.loadMoreView);
         getDataWebService();
     }
 
     private void setupView(ArrayList<Issues> feedList){
         Log.d("DEBUG", "LoadMoreView.LOAD_VIEW_SET_COUNT " + LoadMoreViewIssues.LOAD_VIEW_SET_COUNT);
-        for(int i = 0; i < LoadMoreView.LOAD_VIEW_SET_COUNT; i++){
+        for(int i = 0; i < LoadMoreViewIssues.LOAD_VIEW_SET_COUNT; i++){
             mLoadMoreView.addView(new ItemViewIssues(this.getApplicationContext(), feedList.get(i)));
         }
         /* EVITANDO MOSTRAR EL OTRO DE MAS */
@@ -61,36 +61,28 @@ public class IssuesActivity extends AppCompatActivity {
                 Request.Method.POST,
                 url,
                 null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        int size = response.length();
-                        for (int i = 0; i < size; i++){
-                            try {
-                                JSONObject jsonObject = new JSONObject(response.get(i).toString());
-                                issues = new Issues();
-                                issues.setIssue_id(jsonObject.getString("issue_id"));
-                                issues.setVolume(jsonObject.getString("volume"));
-                                issues.setNumber(jsonObject.getString("number"));
-                                issues.setYear(jsonObject.getString("year"));
-                                issues.setDate_published(jsonObject.getString("date_published"));
-                                issues.setTitle(jsonObject.getString("title"));
-                                issues.setDoi(jsonObject.getString("doi"));
-                                issues.setCover(jsonObject.getString("cover"));
-                                issuesList.add(issues);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
+                response -> {
+                    int size = response.length();
+                    for (int i = 0; i < size; i++){
+                        try {
+                            JSONObject jsonObject = new JSONObject(response.get(i).toString());
+                            issues = new Issues();
+                            issues.setIssue_id(jsonObject.getString("issue_id"));
+                            issues.setVolume(jsonObject.getString("volume"));
+                            issues.setNumber(jsonObject.getString("number"));
+                            issues.setYear(jsonObject.getString("year"));
+                            issues.setDate_published(jsonObject.getString("date_published"));
+                            issues.setTitle(jsonObject.getString("title"));
+                            issues.setDoi(jsonObject.getString("doi"));
+                            issues.setCover(jsonObject.getString("cover"));
+                            issuesList.add(issues);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                        setupView(issuesList);
                     }
+                    setupView(issuesList);
                 },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("HttpClient", "error: " + error.toString());
-                    }
-                }
+                error -> Log.e("HttpClient", "error: " + error.toString())
         );
         requestQueue.add(jsonObjectRequest);
     }

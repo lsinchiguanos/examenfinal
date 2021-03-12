@@ -1,5 +1,6 @@
 package uteq.student.project.examenfinal.LoadMoreView;
 
+import android.annotation.SuppressLint;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -8,21 +9,22 @@ import com.mindorks.placeholderview.InfinitePlaceHolderView;
 import com.mindorks.placeholderview.annotations.Layout;
 import com.mindorks.placeholderview.annotations.infinite.LoadMore;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import uteq.student.project.examenfinal.ItemView.ItemView;
 import uteq.student.project.examenfinal.R;
 import uteq.student.project.examenfinal.models.Journals;
 
+@SuppressLint("NonConstantResourceId")
 @Layout(R.layout.load_more_view)
 public class LoadMoreView {
 
     public static final int LOAD_VIEW_SET_COUNT = 3;
 
     private InfinitePlaceHolderView mLoadMoreView;
-    private List<Journals> mFeedList;
+    private ArrayList<Journals> mFeedList;
 
-    public LoadMoreView(InfinitePlaceHolderView loadMoreView, List<Journals> feedList) {
+    public LoadMoreView(InfinitePlaceHolderView loadMoreView, ArrayList<Journals> feedList) {
         this.mLoadMoreView = loadMoreView;
         this.mFeedList = feedList;
     }

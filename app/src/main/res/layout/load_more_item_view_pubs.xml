@@ -79,6 +79,17 @@
                 android:typeface="sans" />
 
             <TextView
+                android:id="@+id/a"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textColor="@android:color/holo_blue_dark"
+                android:textSize="12sp"
+                android:text="@string/click_to_download_pdf"
+                android:textStyle="normal"
+                android:typeface="sans" />
+
+            <TextView
                 android:id="@+id/publication_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -88,6 +99,7 @@
                 android:textSize="12sp"
                 android:typeface="sans"
                 android:textStyle="normal"/>
+
         </LinearLayout>
     </LinearLayout>
 
