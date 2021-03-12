@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">examenfinal</string>
+    <string name="todo">TODO</string>
+    <string name="view">view</string>
 </resources>

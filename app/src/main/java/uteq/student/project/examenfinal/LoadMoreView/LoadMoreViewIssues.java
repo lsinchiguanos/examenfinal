@@ -10,19 +10,18 @@ import com.mindorks.placeholderview.annotations.infinite.LoadMore;
 
 import java.util.List;
 
-import uteq.student.project.examenfinal.ItemView.ItemView;
+import uteq.student.project.examenfinal.ItemView.ItemViewIssues;
 import uteq.student.project.examenfinal.R;
-import uteq.student.project.examenfinal.models.Journals;
+import uteq.student.project.examenfinal.models.Issues;
 
-@Layout(R.layout.load_more_view)
-public class LoadMoreView {
+@Layout(R.layout.load_more_item_view_issues)
+public class LoadMoreViewIssues {
 
-    public static final int LOAD_VIEW_SET_COUNT = 3;
-
+    public static final int LOAD_VIEW_SET_COUNT = 6;
     private InfinitePlaceHolderView mLoadMoreView;
-    private List<Journals> mFeedList;
+    private List<Issues> mFeedList;
 
-    public LoadMoreView(InfinitePlaceHolderView loadMoreView, List<Journals> feedList) {
+    public LoadMoreViewIssues(InfinitePlaceHolderView loadMoreView, List<Issues> feedList) {
         this.mLoadMoreView = loadMoreView;
         this.mFeedList = feedList;
     }
@@ -30,7 +29,7 @@ public class LoadMoreView {
     @LoadMore
     private void onLoadMore(){
         Log.d("DEBUG", "onLoadMore");
-        new ForcedWaitedLoading();
+        new LoadMoreViewIssues.ForcedWaitedLoading();
     }
 
     class ForcedWaitedLoading implements Runnable{
@@ -55,7 +54,7 @@ public class LoadMoreView {
                     for (int i = count - 1;
                          i < (count - 1 + LoadMoreView.LOAD_VIEW_SET_COUNT) && mFeedList.size() > i;
                          i++) {
-                        mLoadMoreView.addView(new ItemView(mLoadMoreView.getContext(), mFeedList.get(i)));
+                        mLoadMoreView.addView(new ItemViewIssues(mLoadMoreView.getContext(), mFeedList.get(i)));
 
                         if(i == mFeedList.size() - 1){
                             mLoadMoreView.noMoreToLoad();
@@ -67,4 +66,5 @@ public class LoadMoreView {
             });
         }
     }
+
 }

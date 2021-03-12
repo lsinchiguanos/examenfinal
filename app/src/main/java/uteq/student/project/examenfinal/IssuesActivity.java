@@ -10,7 +10,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.mindorks.placeholderview.InfinitePlaceHolderView;
 
@@ -22,40 +21,44 @@ import java.util.ArrayList;
 import java.util.List;
 
 import uteq.student.project.examenfinal.ItemView.ItemView;
+import uteq.student.project.examenfinal.ItemView.ItemViewIssues;
 import uteq.student.project.examenfinal.LoadMoreView.LoadMoreView;
+import uteq.student.project.examenfinal.LoadMoreView.LoadMoreViewIssues;
+import uteq.student.project.examenfinal.models.Issues;
 import uteq.student.project.examenfinal.models.Journals;
 
-public class MainActivity extends AppCompatActivity {
+public class IssuesActivity extends AppCompatActivity {
 
-    private Journals journals;
-    private ArrayList<Journals> journalsArrayList;
+    private Issues issues;
+    private ArrayList<Issues> issuesList;
     private RequestQueue requestQueue;
     private InfinitePlaceHolderView mLoadMoreView;
+    private String journal_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_issues);
+        journal_id = getIntent().getExtras().getString("j_id");
         requestQueue = Volley.newRequestQueue(this);
         mLoadMoreView = (InfinitePlaceHolderView)findViewById(R.id.loadMoreView);
         getDataWebService();
     }
 
-    private void setupView(ArrayList<Journals> feedList){
-        Log.d("DEBUG", "LoadMoreView.LOAD_VIEW_SET_COUNT " + LoadMoreView.LOAD_VIEW_SET_COUNT);
+    private void setupView(ArrayList<Issues> feedList){
+        Log.d("DEBUG", "LoadMoreView.LOAD_VIEW_SET_COUNT " + LoadMoreViewIssues.LOAD_VIEW_SET_COUNT);
         for(int i = 0; i < LoadMoreView.LOAD_VIEW_SET_COUNT; i++){
-            mLoadMoreView.addView(new ItemView(this.getApplicationContext(), feedList.get(i)));
+            mLoadMoreView.addView(new ItemViewIssues(this.getApplicationContext(), feedList.get(i)));
         }
         /* EVITANDO MOSTRAR EL OTRO DE MAS */
-        //mLoadMoreView.setLoadMoreResolver(new LoadMoreView(mLoadMoreView, feedList));
+        mLoadMoreView.setLoadMoreResolver(new LoadMoreViewIssues(mLoadMoreView, feedList));
     }
 
-
     private void getDataWebService() {
-        journalsArrayList = new ArrayList<>();
-        String url = "https://revistas.uteq.edu.ec/ws/journals.php";
+        issuesList = new ArrayList<>();
+        String url = "https://revistas.uteq.edu.ec/ws/issues.php?j_id=" + journal_id;
         JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(
-                Request.Method.GET,
+                Request.Method.POST,
                 url,
                 null,
                 new Response.Listener<JSONArray>() {
@@ -65,17 +68,21 @@ public class MainActivity extends AppCompatActivity {
                         for (int i = 0; i < size; i++){
                             try {
                                 JSONObject jsonObject = new JSONObject(response.get(i).toString());
-                                journals = new Journals();
-                                journals.setJournal_id(jsonObject.getString("journal_id"));
-                                journals.setPortada(jsonObject.getString("portada"));
-                                journals.setAbbreviation(jsonObject.getString("abbreviation"));
-                                journals.setName(jsonObject.getString("name"));
-                                journalsArrayList.add(journals);
+                                issues = new Issues();
+                                issues.setIssue_id(jsonObject.getString("issue_id"));
+                                issues.setVolume(jsonObject.getString("volume"));
+                                issues.setNumber(jsonObject.getString("number"));
+                                issues.setYear(jsonObject.getString("year"));
+                                issues.setDate_published(jsonObject.getString("date_published"));
+                                issues.setTitle(jsonObject.getString("title"));
+                                issues.setDoi(jsonObject.getString("doi"));
+                                issues.setCover(jsonObject.getString("cover"));
+                                issuesList.add(issues);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                         }
-                        setupView(journalsArrayList);
+                        setupView(issuesList);
                     }
                 },
                 new Response.ErrorListener() {
@@ -87,5 +94,4 @@ public class MainActivity extends AppCompatActivity {
         );
         requestQueue.add(jsonObjectRequest);
     }
-
 }

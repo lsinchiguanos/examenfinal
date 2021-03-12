@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="uteq.student.project.examenfinal">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -14,9 +14,11 @@
         android:theme="@style/Theme.Examenfinal"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
+        <activity android:name=".IssuesActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
